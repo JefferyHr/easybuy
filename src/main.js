@@ -10,6 +10,7 @@ import "./assets/css/index.css"
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'dayjs/locale/zh-cn'
+import "animate.css"
 
 
 
