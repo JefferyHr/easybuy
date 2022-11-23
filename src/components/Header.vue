@@ -16,8 +16,13 @@
                 <a href="javascript:void(0)">Select Location</a>
             </div>
             <div class="title-right  h-full flex items-center flex-row text-[12px] ">
-                <span>欢迎登录：H2204</span>
-                <span>退出登录</span>
+                <div v-if="loginUserInfo">
+                    <span>欢迎登录：{{ loginUserInfo.custom_realName }}</span>
+                    <span @click="logOut">退出登录</span>
+                </div>
+                <div v-else>
+                    <span @click="$router.push({ name: 'Login' })">请登录</span>
+                </div>
                 <a>个人中心</a>
                 <div
                     class="shop-car bg-[#424242] cursor-pointer h-full  w-[80px] flex items-center flex-row justify-center hover:text-primaryColor">
@@ -46,7 +51,28 @@
 </template>
 
 <script setup>
+import API from "../utils/API"
+import { mainStore } from "../store"
+import { useRouter } from 'vue-router';
+import { ElMessage, ElMessageBox } from "element-plus"
+import { storeToRefs } from 'pinia';
 
+const store = mainStore()
+const router = useRouter()
+const { loginUserInfo } = storeToRefs(store)
+
+const logOut = () => {
+    ElMessageBox.confirm("确定要退出吗", "系统提示", {
+        confirmButtonText: "确定退出",
+        cancelButtonText: "取消",
+        type: "warning",
+    }).then(() => {
+        store.logOut()
+        router.replace({
+            name: "Login"
+        })
+    })
+}
 </script>
 
 <style lang="scss" scoped>
