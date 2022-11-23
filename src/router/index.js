@@ -18,6 +18,38 @@ const router = createRouter({
             path: "/Login",
             name: "Login",
             component: () => import("../views/Login")
+        },
+        {
+            path: "/MyShopCarList",
+            name: "MyShopCarList",
+            component: () => import("../views/MyShopCarList.vue")
+        },
+        {
+            path: "/CustomCenter",
+            name: "CustomCenter",
+            component: () => import("../views/CustomCenter.vue"),
+            children: [
+                {
+                    path: "CustomInfo",
+                    name: "CustomInfo",
+                    component: () => import("../views/CustomInfo.vue"),
+                },
+                {
+                    path: "AddressList",
+                    name: "AddressList",
+                    component: () => import("../views/AddressList.vue"),
+                },
+                {
+                    path: "OrderInfoList",
+                    name: "OrderInfoList",
+                    component: () => import("../views/OrderInfoList.vue"),
+                },
+                {
+                    path: "UploadMyPassword",
+                    name: "UploadMyPassword",
+                    component: () => import("../views/UploadMyPassword.vue"),
+                },
+            ]
         }
     ]
 })
