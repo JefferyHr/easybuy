@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(config => {
     const store = mainStore()
-    config.headers["softeem_clietn_token"] = store.token
+    config.headers["easybuy_client_token"] = store.token
     return config
 })
 

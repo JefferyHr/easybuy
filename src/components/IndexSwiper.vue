@@ -62,11 +62,11 @@ const getTopProductsInfoListAndGoods = () => {
 }
 getTopProductsInfoListAndGoods()
 
-const toSearch = () => {
-
+const toSearch = (products_id) => {
+    window.open(router.resolve({ name: "Search", query: { products_id } }).href);
 }
-const toGoodsDetail = () => {
-
+const toGoodsDetail = (item) => {
+    window.open(router.resolve({ name: "goodsDetail", params: { id: item.id } }).href);
 }
 </script>
 
