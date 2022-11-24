@@ -76,8 +76,5 @@ const route = useRoute();
 
 </script>
 <style scoped lang="scss">
-:deep.el-sub-menu__icon-arrow {
-    display: none;
-    opacity: 0;
-}
+
 </style>
