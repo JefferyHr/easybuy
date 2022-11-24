@@ -18,6 +18,7 @@
     "element-plus": "^2.2.22",
     "pinia": "^2.0.23",
     "pinia-plugin-persistedstate": "^2.4.0",
+    "swiper": "^8.4.5",
     "vue": "^3.2.41",
     "vue-echarts": "^6.2.3",
     "vue-router": "^4.1.6",

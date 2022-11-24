@@ -18,6 +18,7 @@ import "animate.css"
 import PageView from "./components/PageView.vue"
 import Header from "./components/Header.vue"
 import Footer from "./components/Footer.vue"
+import IndexSwiper from "./components/IndexSwiper.vue"
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -28,6 +29,7 @@ app.provide("baseURL", baseURL)
 app.component("page-view", PageView)
 app.component("Header", Header)
 app.component("Footer", Footer)
+app.component("IndexSwiper", IndexSwiper)
 
 
 
