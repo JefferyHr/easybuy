@@ -1,7 +1,7 @@
 <template>
     <Header></Header>
     <page-view class="flex flex-col justify-center items-center bg-[#f3f4f6]">
-        <div class="flex flex-1 overflow-auto  w-[1226px]  mt-[22px]">
+        <div class="flex flex-1 overflow-auto  base-width  mt-[22px]">
             <div class="left flex flex-row ">
                 <el-menu :unique-opened="true" class=" w-[200px]" :router='true'>
                     <el-menu-item index="/CustomCenter/CustomInfo" class="flex flex-row justify-center ">
@@ -51,6 +51,7 @@
                 <router-view></router-view>
             </div>
         </div>
+
     </page-view>
     <Footer></Footer>
 
@@ -66,18 +67,15 @@ import {
     List
 } from '@element-plus/icons-vue';
 import { useRouter, useRoute } from "vue-router";
-
+import { reactive, ref } from "vue";
+import API from "@/utils/API/index.js";
+import { onMounted, inject } from "vue";
 
 const router = useRouter();
 const route = useRoute();
 
 
-
-
 </script>
 <style scoped lang="scss">
-:deep.el-sub-menu__icon-arrow {
-    display: none;
-    opacity: 0;
-}
+
 </style>

@@ -20,7 +20,6 @@ const router = createRouter({
             component: () => import("../views/Login")
         },
         {
-<<<<<<< HEAD
             path: "/MyShopCarList",
             name: "MyShopCarList",
             component: () => import("../views/MyShopCarList.vue")
@@ -51,11 +50,12 @@ const router = createRouter({
                     component: () => import("../views/UploadMyPassword.vue"),
                 },
             ]
-=======
+
+        },
+        {
             path: "/Register",
             name: "Register",
             component: () => import("../views/Register")
->>>>>>> 4eae5d5ee2468a388aaed1c572f2d9e87ec1d4d9
         }
     ]
 })

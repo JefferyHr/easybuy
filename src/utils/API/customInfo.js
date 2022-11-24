@@ -12,6 +12,17 @@ const customInfo = {
         return axiosInstance.post("/customInfo/register", {
             custom_realName, custom_pwd, custom_tel, custom_email, custom_sex, custom_birthday, custom_addr, custom_photo
         })
+    },
+
+    /**
+     * 修改密码
+     * @param {oldPassword, newPassword} param0 
+     * @returns {Promise<AxiosInstance>}
+     */
+    uploadMyPassword({ oldPassword, newPassword }) {
+        return axiosInstance.post("/customInfo/uploadMyPassword", {
+            oldPassword, newPassword
+        })
     }
 }
 

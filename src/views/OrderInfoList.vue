@@ -7,7 +7,7 @@
             </span>
         </div>
         <div class="mt-[22px]">
-            <el-tabs v-model="activeName" class="demo-tabs " type="card">
+            <el-tabs v-model="activeName" v-for="item in resultData.listData" class="demo-tabs " type="card">
                 <el-tab-pane label="全部" name="first">
                     <el-card>
                         <div>
@@ -17,23 +17,26 @@
                         <div
                             class="flex flex-row justify-between mt-[22px] border-0  border-b border-gray-200 pb-[6px]">
                             <div class="text-[12px]">
-                                <span>2022年11月23日 10:22:22</span>
-                                |<span class="ml-[2px]">bgg</span>
+                                <span>{{ item.order_submission_time }}</span>
+                                |<span class="ml-[2px]">{{ item.customInfo.custom_realName }}</span>
                                 |<span class="ml-[2px]">订单号：</span>
-                                <span>254</span>
+                                <span>{{ item.orderDetailInfoList[0].order_id }}</span>
                                 |<span class="ml-[2px]">在线支付【支付宝】</span>
                             </div>
                             <div class="text-[12px]">
                                 订单金额：
-                                <span class="text-[18px]">1122.00</span>元
+                                <span class="text-[18px]">{{ item.orderDetailInfoList[0].goodsInfo.goods_price
+                                }}</span>元
                             </div>
                         </div>
                         <div class="flex flex-row justify-between">
                             <div class="flex flex-row items-center pt-[10px]">
-                                <div class="w-[90px] h-[100px]">图片</div>
+                                <img :src="baseURL + item.customInfo.custom_photo" class="w-[90px] h-[100px]" />
                                 <div class="ml-[6px] text-[12px]">
-                                    <p>小米加湿器</p>
-                                    <span>188.00元</span>x<span>1</span>
+                                    <p>{{ item.orderDetailInfoList[0].goodsInfo.goods_name }}</p>
+                                    <span>{{ item.orderDetailInfoList[0].goodsInfo.goods_price }}元</span>x<span>{{
+                                            item.orderDetailInfoList[0].goods_num
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="flex flex-col">
@@ -69,10 +72,43 @@
     </page-view>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref } from "vue";
+import API from "@/utils/API/index.js";
+import { onMounted, inject } from "vue";
+
+const activeName = ref('first');
+const baseURL = inject("baseURL");
+
+const queryFormData = reactive({
+    pageIndex: 1
+})
+
+const resultData = ref({
+    listData: [],
+    order_submission_time: "",
+    order_pay_type: 0,
+    order_id: 0,
+    goods_price: "",
+    goods_photo: "",
+    goods_name: "",
+    goods_num: "",
 
 
-const activeName = ref('first')
+});
+
+//根据页面来查询
+const queryData = () => {
+    API.orderInfo.getListByPage(queryFormData.pageIndex)
+        .then(result => {
+            resultData.value = result;
+            console.log(resultData.value.listData);
+
+        })
+}
+
+onMounted(() => {
+    queryData();
+})
 
 
 </script>
