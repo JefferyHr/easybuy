@@ -15,6 +15,15 @@ const goodsInfo = {
                 products_id
             }
         })
+    },
+    // http://www.softeem.xin:9547/goodsInfo/findById/:id
+    findById(id) {
+        return axiosInstance.get(`/goodsInfo/findById/${id}`)
+    },
+    // http://www.softeem.xin:9547/goodsInfo/getRecommendGoodsList
+    getRecommendGoodsList() {
+        return axiosInstance.get(`/goodsInfo/getRecommendGoodsList`)
     }
+
 }
 export default goodsInfo

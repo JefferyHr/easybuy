@@ -23,7 +23,8 @@
                 <div v-else>
                     <span @click="$router.push({ name: 'Login' })">请登录</span>
                 </div>
-                <div class="cursor-pointer hover:text-primaryColor " @click="$router.push({ name: 'CustomCenter' })">
+                <div class="cursor-pointer hover:text-primaryColor mr-6"
+                    @click="$router.push({ name: 'CustomCenter' })">
                     个人中心</div>
                 <div class="shop-car bg-[#424242] cursor-pointer h-full  w-[80px] flex items-center flex-row justify-center hover:text-primaryColor"
                     @click="$router.push({ name: 'MyShopCarList' })">
@@ -32,7 +33,7 @@
         </div>
     </div>
     <div class="base-width bg-white flex flex-row justify-between items-center h-[76px]">
-        <img src="../assets/img/logo.png" class="w-[56px] h-[56px]" alt="">
+        <img src="../assets/img/logo.png" class="w-[56px] h-[56px] cursor-pointer" @click="toIndex" alt="">
         <div class="nav-bar flex flex-row text-black text-[14px]">
             <a href="javascript:void(0)">Xiaomi手机</a>
             <a href="javascript:void(0)">Redmi手机</a>
@@ -45,23 +46,26 @@
             <a href="javascript:void(0)">社区</a>
         </div>
         <div class="flex  flex-row w-[280px]">
-            <el-input placeholder="小米手机"></el-input>
-            <el-button color="rgb(255,103,27)">搜索</el-button>
+            <el-input :placeholder='goodName ? goodName : "请输入要搜索的商品"' v-model="goods_name"></el-input>
+            <el-button color="rgb(255,103,27)" @click="toSearch(goods_name)">搜索</el-button>
         </div>
     </div>
 </template>
 
 <script setup>
-import API from "../utils/API"
+import { ref, inject } from "vue"
 import { mainStore } from "../store"
 import { useRouter } from 'vue-router';
-import { ElMessage, ElMessageBox } from "element-plus"
+import { ElMessageBox } from "element-plus"
 import { storeToRefs } from 'pinia';
+
 
 const store = mainStore()
 const router = useRouter()
 const { loginUserInfo } = storeToRefs(store)
+const goods_name = ref('')
 
+const goodName = inject("goodsname")
 const logOut = () => {
     ElMessageBox.confirm("确定要退出吗", "系统提示", {
         confirmButtonText: "确定退出",
@@ -73,6 +77,12 @@ const logOut = () => {
             name: "Login"
         })
     })
+}
+const toIndex = () => {
+    router.replace({ name: "Index" })
+}
+const toSearch = (goods_name) => {
+    window.open(router.resolve({ name: "Search", query: { goods_name } }).href);
 }
 </script>
 

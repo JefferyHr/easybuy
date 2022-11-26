@@ -4,7 +4,7 @@
         <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
             <div class="base-width flex flex-row">
                 <div class="brick-list">
-                    <template v-for="item, index in queryResultData.listData">
+                    <template v-for="item, index in resultData.listData">
                         <div class="brick-item cursor-pointer">
                             <a>
                                 <div class=" w-[160px] h-[160px] mx-auto my-20">
@@ -23,11 +23,11 @@
                     </template>
                 </div>
             </div>
-            <div class="py-10 flex flex-row justify-between base-width" v-if="queryResultData.listData.length > 0">
-                <p class="text-gray-500 text-[14px]">当前第{{ queryFormData.pageIndex }}页，共{{ queryResultData.pageCount
-                }}页，共{{ queryResultData.totalCount }}条</p>
+            <div class="py-10 flex flex-row justify-between base-width" v-if="resultData.listData.length > 0">
+                <p class="text-gray-500 text-[14px]">当前第{{ queryFormData.pageIndex }}页，共{{ resultData.pageCount
+                }}页，共{{ resultData.totalCount }}条</p>
                 <el-pagination background layout="prev, pager, next" :current-page="queryFormData.pageIndex"
-                    @current-change="pageChange" :total="queryResultData.totalCount"></el-pagination>
+                    @current-change="pageChange" :total="resultData.totalCount"></el-pagination>
             </div>
         </div>
         <Footer></Footer>
@@ -36,7 +36,7 @@
 
 <script setup>
 import { useRouter, useRoute } from "vue-router";
-import { inject, reactive, ref } from "vue";
+import { inject, reactive, ref, provide } from "vue";
 import API from "@/utils/API";
 
 const baseURL = inject("baseURL");
@@ -44,11 +44,11 @@ const router = useRouter();
 const route = useRoute();
 const queryFormData = reactive({
     pageIndex: 1,
-    goods_name: "",
     products_id: "",
+    goods_name: ""
 });
 
-const queryResultData = reactive({
+const resultData = reactive({
     listData: [],
     pageStart: 1,
     pageEnd: 1,
@@ -63,20 +63,22 @@ const queryData = () => {
             result.listData.forEach(item => {
                 item.goods_photo = JSON.parse(item.goods_photo);
             })
-            queryResultData.listData = result.listData;
-            queryResultData.pageStart = result.pageStart;
-            queryResultData.pageEnd = result.pageEnd;
-            queryResultData.totalCount = result.totalCount;
-            queryResultData.pageCount = result.pageCount;
+            resultData.listData = result.listData;
+            resultData.pageStart = result.pageStart;
+            resultData.pageEnd = result.pageEnd;
+            resultData.totalCount = result.totalCount;
+            resultData.pageCount = result.pageCount;
         })
         .finally(() => {
             isLoading.value = false;
         });
 }
-
-queryFormData.goods_name = route.query.keyword;
-queryFormData.products_id = route.query.products_id;
-queryData();
+(() => {
+    queryFormData.goods_name = route.query.goods_name;
+    queryFormData.products_id = route.query.products_id;
+    queryData();
+    provide('goodsname', route.query.goods_name)
+})()
 const pageChange = page => {
     queryFormData.pageIndex = page;
     queryData();

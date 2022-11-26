@@ -5,7 +5,8 @@
             <div class="right-content  w-full  p-18 ">
                 <!-- 头部 -->
                 <div class="flex flex-row justify-between">
-                    <div class="left-logo flex flex-row items-center ml-18">
+                    <div class="left-logo flex flex-row items-center ml-18 cursor-pointer"
+                        @click="$router.replace({ name: 'Index' })">
                         <img src="../assets/img/logo.png" class="w-[40px] object-cover" alt="">
                         <div class="text-[26px] text-gray-700 ml-10 ">小米账号</div>
                     </div>

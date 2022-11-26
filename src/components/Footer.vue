@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="site-info base-width flex flex-row pt-20 bg-gray-100">
+    <div class="site-info base-width flex flex-row pt-20 bg-gray-50">
         <img src="../assets/img/logo.png" class="w-[56px] h-[56px]" alt="">
         <div class="info-text ml-20">
             <p class="sites">
