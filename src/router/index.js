@@ -20,14 +20,11 @@ const router = createRouter({
             component: () => import("../views/Login")
         },
         {
-<<<<<<< HEAD
-=======
             path: "/Register",
             name: "Register",
             component: () => import("../views/Register")
         },
         {
->>>>>>> 7350895ddaf3daa6f7e00ac34c656d8381b8c982
             path: "/MyShopCarList",
             name: "MyShopCarList",
             component: () => import("../views/MyShopCarList.vue")
@@ -58,22 +55,19 @@ const router = createRouter({
                     component: () => import("../views/UploadMyPassword.vue"),
                 },
             ]
-<<<<<<< HEAD
 
         },
         {
             path: "/Register",
             name: "Register",
             component: () => import("../views/Register")
-        }
-=======
         },
+
         {
             path: "/Search",
             name: "Search",
             component: () => import("../views/Search.vue")
         },
->>>>>>> 7350895ddaf3daa6f7e00ac34c656d8381b8c982
     ]
 })
 

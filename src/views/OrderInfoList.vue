@@ -1,5 +1,5 @@
 <template>
-    <page-view class="pt-[30px] pl-[22px]">
+    <div class="pt-[30px] pl-[22px] big-box">
         <div>
             <span class="text-[22px]">我的订单</span>
             <span class="text-[12px] pl-[8px]">
@@ -7,11 +7,11 @@
             </span>
         </div>
         <div class="mt-[22px]">
-            <el-tabs v-model="activeName" v-for="item in resultData.listData" class="demo-tabs " type="card">
+            <el-tabs v-model="activeName" type="card">
                 <el-tab-pane label="全部" name="first">
-                    <el-card>
+                    <el-card v-for="item in resultData.listData" class="demo-tabs ">
                         <div>
-                            <span class="text-[18px]">未付款</span>
+                            <span class="text-[18px]">{{ item.order_pay_type == 1 ? '未付款' : '已付款' }}</span>
                             <el-button plain color="#ff6a00" class="text-[12px] ml-[10px]" size="small">去付款</el-button>
                         </div>
                         <div
@@ -46,30 +46,106 @@
                             </div>
                         </div>
                     </el-card>
+
+                    <!-- 页码 -->
+                    <div class="flex flex-row justify-between items-center pt-[11px]">
+                        <div class="text-[14px]">当前第{{ queryFormData.pageIndex }}页，共{{ resultData.pageCount }}页，共{{
+                                resultData.totalCount
+                        }}条</div>
+                        <el-pagination background layout="prev, pager, next" :total="resultData.totalCount"
+                            @current-change="currentChange" />
+                    </div>
                 </el-tab-pane>
+
                 <el-tab-pane label="未付款" name="second">
-                    <el-card>
-                        未付款
+                    <el-card v-for="item in resultData.listData" class="demo-tabs " v-show="item.order_pay_type == 1">
+                        <div>
+                            <span class="text-[18px]">{{ item.order_pay_type == 1 ? '未付款' : '已付款' }}</span>
+                            <el-button plain color="#ff6a00" class="text-[12px] ml-[10px]" size="small">去付款</el-button>
+                        </div>
+                        <div
+                            class="flex flex-row justify-between mt-[22px] border-0  border-b border-gray-200 pb-[6px]">
+                            <div class="text-[12px]">
+                                <span>{{ item.order_submission_time }}</span>
+                                |<span class="ml-[2px]">{{ item.customInfo.custom_realName }}</span>
+                                |<span class="ml-[2px]">订单号：</span>
+                                <span>{{ item.orderDetailInfoList[0].order_id }}</span>
+                                |<span class="ml-[2px]">在线支付【支付宝】</span>
+                            </div>
+                            <div class="text-[12px]">
+                                订单金额：
+                                <span class="text-[18px]">{{ item.orderDetailInfoList[0].goodsInfo.goods_price
+                                }}</span>元
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <div class="flex flex-row items-center pt-[10px]">
+                                <img :src="baseURL + item.customInfo.custom_photo" class="w-[90px] h-[100px]" />
+                                <div class="ml-[6px] text-[12px]">
+                                    <p>{{ item.orderDetailInfoList[0].goodsInfo.goods_name }}</p>
+                                    <span>{{ item.orderDetailInfoList[0].goodsInfo.goods_price }}元</span>x<span>{{
+                                            item.orderDetailInfoList[0].goods_num
+                                    }}</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <el-button class="mt-[22px]" plain>订单详细</el-button>
+                                <el-button class="mt-[6px] px-[6px]" plain>申请售后</el-button>
+                                <el-button class="mt-[6px]" plain>联系客户</el-button>
+                            </div>
+                        </div>
                     </el-card>
+
                 </el-tab-pane>
                 <el-tab-pane label="已付款" name="third">
-                    <el-card>
-                        已付款
+                    <el-card v-for="item in resultData.listData" class="demo-tabs " v-show="item.order_pay_type == 0">
+                        <div>
+                            <span class="text-[18px]">{{ item.order_pay_type == 1 ? '未付款' : '已付款' }}</span>
+                            <el-button plain color="#ff6a00" class="text-[12px] ml-[10px]" size="small">去付款</el-button>
+                        </div>
+                        <div
+                            class="flex flex-row justify-between mt-[22px] border-0  border-b border-gray-200 pb-[6px]">
+                            <div class="text-[12px]">
+                                <span>{{ item.order_submission_time }}</span>
+                                |<span class="ml-[2px]">{{ item.customInfo.custom_realName }}</span>
+                                |<span class="ml-[2px]">订单号：</span>
+                                <span>{{ item.orderDetailInfoList[0].order_id }}</span>
+                                |<span class="ml-[2px]">在线支付【支付宝】</span>
+                            </div>
+                            <div class="text-[12px]">
+                                订单金额：
+                                <span class="text-[18px]">{{ item.orderDetailInfoList[0].goodsInfo.goods_price
+                                }}</span>元
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <div class="flex flex-row items-center pt-[10px]">
+                                <img :src="baseURL + item.customInfo.custom_photo" class="w-[90px] h-[100px]" />
+                                <div class="ml-[6px] text-[12px]">
+                                    <p>{{ item.orderDetailInfoList[0].goodsInfo.goods_name }}</p>
+                                    <span>{{ item.orderDetailInfoList[0].goodsInfo.goods_price }}元</span>x<span>{{
+                                            item.orderDetailInfoList[0].goods_num
+                                    }}</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <el-button class="mt-[22px]" plain>订单详细</el-button>
+                                <el-button class="mt-[6px] px-[6px]" plain>申请售后</el-button>
+                                <el-button class="mt-[6px]" plain>联系客户</el-button>
+                            </div>
+                        </div>
                     </el-card>
+
                 </el-tab-pane>
                 <el-tab-pane label="已发货" name="fourth">
-                    <el-card>
-                        已发货
-                    </el-card>
+
                 </el-tab-pane>
                 <el-tab-pane label="已签收" name="five">
-                    <el-card>
-                        已签收
-                    </el-card>
+
                 </el-tab-pane>
             </el-tabs>
         </div>
-    </page-view>
+    </div>
 </template>
 <script setup>
 import { reactive, ref } from "vue";
@@ -80,31 +156,34 @@ const activeName = ref('first');
 const baseURL = inject("baseURL");
 
 const queryFormData = reactive({
-    pageIndex: 1
+    pageIndex: 3,
 })
 
-const resultData = ref({
+const resultData = reactive({
     listData: [],
-    order_submission_time: "",
-    order_pay_type: 0,
-    order_id: 0,
-    goods_price: "",
-    goods_photo: "",
-    goods_name: "",
-    goods_num: "",
-
+    pageCount: 0,
+    totalCount: 0,
 
 });
+
+//网页发生变化
+const currentChange = (index) => {
+    queryFormData.pageIndex = index;
+    queryData();
+
+}
 
 //根据页面来查询
 const queryData = () => {
     API.orderInfo.getListByPage(queryFormData.pageIndex)
         .then(result => {
-            resultData.value = result;
-            console.log(resultData.value.listData);
-
+            console.log(result)
+            resultData.listData = result.listData;
+            resultData.pageCount = result.pageCount;
+            resultData.totalCount = result.totalCount;
         })
 }
+
 
 onMounted(() => {
     queryData();
@@ -118,5 +197,10 @@ onMounted(() => {
     color: #e7e9ed;
     font-size: 32px;
     font-weight: 600;
+}
+
+.big-box {
+    width: 100%;
+
 }
 </style>
