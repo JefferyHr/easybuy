@@ -1,6 +1,6 @@
 <template>
     <div class="py-6 border-b-2 border-solid" v-loading="isLoading" element-loading-text="正在提交订单">
-        <div class="base-width m-auto flex flex-row items-end">
+        <div class="base-width m-auto flex flex-row items-center">
             <img src="../../src/assets/img/logo.png" class="w-[56px] h-[56px] cursor-pointer"
                 @click="$router.replace({ name: 'Index' })" alt="">
             <div class="flex-1 flex flex-row items-baseline">
@@ -32,6 +32,10 @@
         <div class="base-width m-auto mt-[22px] p-[20px] bg-white">
             <h2 class="text-gray-700 text-[18px] my-[6px]">收货地址</h2>
             <el-skeleton animated :loading="isAddressInfoLoading">
+                <div class="flex flex-row h-[40px] justify-center items-center my-5 bg-gray-100 cursor-pointer text-gray-500"
+                    @click="getPrevPageAddress" v-if="myAddressInfoList.pageIndex > 1">
+                    加载上一页
+                </div>
                 <div class="address-list">
                     <div class="address-item  p-[20px]" :class="{ selected: addressIndex === index }"
                         @click="addressIndex = index" v-for="(item, index) in myAddressInfoList.listData"
@@ -57,7 +61,7 @@
                 </div>
                 <div class="flex flex-row h-[40px] justify-center items-center my-5 bg-gray-100 cursor-pointer text-gray-500"
                     @click="getNextPageAddress" v-if="myAddressInfoList.pageIndex < myAddressInfoList.pageCount">
-                    加载下一页地址数据
+                    加载下一页
                 </div>
             </el-skeleton>
             <el-skeleton animated :loading="isGetCheckoutOrderGoodsLoading">
@@ -177,7 +181,27 @@ const getNextPageAddress = () => {
             });
     }
 }
+const getPrevPageAddress = () => {
+    if (myAddressInfoList.pageIndex <= myAddressInfoList.pageCount) {
+        queryAddressData.pageIndex--;
+        if (queryAddressData.pageIndex < 1) {
+            queryAddressData.pageIndex = 1
+        } else {
+            isAddressInfoLoading.value = true;
+            API.addressInfo.getMyAddressInfoList(queryAddressData.pageIndex)
+                .then((result) => {
+                    myAddressInfoList.listData = result.listData;
+                    myAddressInfoList.pageCount = result.pageCount;
+                    myAddressInfoList.pageIndex = result.pageIndex;
+                    myAddressInfoList.totalCount = result.totalCount;
+                })
+                .finally(() => {
+                    isAddressInfoLoading.value = false;
+                });
+        }
 
+    }
+}
 /**
  * 获取确认订单的商品数据
  */

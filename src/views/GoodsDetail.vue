@@ -108,6 +108,7 @@ import { mainStore } from '../store';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 import { Location } from "@element-plus/icons-vue"
+import { ElMessageBox } from "element-plus"
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -155,17 +156,31 @@ const getAddress = async () => {
     area.value = res.listData[0].province + " " + res.listData[0].city + " " + res.listData[0].area
 }
 (() => {
-    getAddress()
+    if (store.loginUserInfo) {
+        getAddress()
+    }
 })()
-const infoList = reactive({
-    goods_id: route.params.id,
-    custom_id: store.loginUserInfo.id
-})
+
 const addToShopCar = () => {
-    API.shopCarInfo.addToShopCar(infoList).then((res) => {
-        console.log(res);
-        router.push({ name: 'AddToShopCarResult', params: { goods_id: id } })
-    })
+    if (store.loginUserInfo) {
+        const infoList = reactive({
+            goods_id: route.params.id,
+            custom_id: store.loginUserInfo.id
+        })
+        API.shopCarInfo.addToShopCar(infoList).then((res) => {
+            console.log(res);
+            router.push({ name: 'AddToShopCarResult', params: { goods_id: id } })
+        })
+    } else {
+        ElMessageBox.confirm("你还没有登录", "提示", {
+            confirmButtonText: '去登录',
+            cancelButtonText: '取消',
+            type: "error"
+        }).then(() => {
+            router.replace({ name: "Login" });
+        }).catch(() => {
+        })
+    }
 }
 
 </script>

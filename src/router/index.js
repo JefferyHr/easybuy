@@ -110,12 +110,6 @@ const router = createRouter({
 
         },
         {
-            path: "/Register",
-            name: "Register",
-            component: () => import("../views/Register")
-        },
-
-        {
             path: "/Search",
             name: "Search",
             component: () => import("../views/Search.vue"),
@@ -150,6 +144,7 @@ router.beforeEach((to, from, next) => {
         if (store.token) {
             next();
         } else {
+            console.log("你还没有登陆，请去登陆");
             ElNotification({
                 type: "error",
                 title: "系统提示",

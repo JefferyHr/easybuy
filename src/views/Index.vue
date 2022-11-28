@@ -94,7 +94,7 @@
                 <div class="base-width flex flex-row">
                     <div class="brick-list">
                         <template v-for="(item, index) in phoneListData" :key="item.id">
-                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
+                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item.id)"
                                 :class="{ 'last-item': index === 9 }">
                                 <a>
                                     <div class="w-[160px] h-[160px] mx-auto my-20">
@@ -142,7 +142,7 @@
                 <div class="base-width flex flex-row">
                     <div class="brick-list">
                         <template v-for="item, index in tvListData">
-                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
+                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item.id)"
                                 :class="{ 'last-item': index === 9 }">
                                 <a>
                                     <div class="w-[160px] h-[160px] mx-auto my-20">
@@ -190,7 +190,7 @@
                 <div class="base-width flex flex-row">
                     <div class="brick-list">
                         <template v-for="item, index in pcListData">
-                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
+                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item.id)"
                                 :class="{ 'last-item': index === 9 }">
                                 <a>
                                     <div class="w-[160px] h-[160px] mx-auto my-20">
@@ -226,7 +226,7 @@
                 <div class="base-width flex flex-row">
                     <div class="brick-list">
                         <template v-for="item, index in otherListData">
-                            <div class="brick-item-last cursor-pointer" @click="toGoosDetail(item)">
+                            <div class="brick-item-last cursor-pointer" @click="toGoosDetail(item.id)">
                                 <a>
                                     <div class=" w-[160px] h-[160px] mx-auto my-20">
                                         <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
@@ -287,8 +287,8 @@ const getTopProductsInfoListAndGoods = async () => {
 }
 getTopProductsInfoListAndGoods()
 
-const toGoosDetail = item => {
-    window.open(router.resolve({ name: "GoodsDetail", params: { id: item.id } }).href);
+const toGoosDetail = id => {
+    window.open(router.resolve({ name: "GoodsDetail", params: { id: id } }).href);
 }
 const toSearch = (products_id, goods_name) => {
     window.open(router.resolve({ name: "Search", query: { products_id, goods_name } }).href);
