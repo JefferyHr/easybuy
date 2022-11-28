@@ -2,7 +2,7 @@
     <div class="py-6 border-b-2 border-solid" v-loading="isLoading" element-loading-text="正在提交订单">
         <div class="base-width m-auto flex flex-row items-end">
             <img src="../../src/assets/img/logo.png" class="w-[56px] h-[56px] cursor-pointer"
-                @click="$router.replace({ name: 'index' })" alt="">
+                @click="$router.replace({ name: 'Index' })" alt="">
             <div class="flex-1 ml-10 flex flex-row items-baseline">
                 <div class="text-[22px] ml-[22px]">确认订单</div>
             </div>
@@ -18,6 +18,8 @@
                         <el-dropdown-menu>
                             <el-dropdown-item command="CustomInfo" @click="router.replace({ name: 'CustomInfo' })">
                                 人个中心</el-dropdown-item>
+                            <el-dropdown-item command="CustomCenter" @click="router.replace({ name: 'OrderInfoList' })">
+                                我的订单</el-dropdown-item>
                             <el-dropdown-item divided command="logOut">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
