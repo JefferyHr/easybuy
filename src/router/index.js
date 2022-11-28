@@ -54,6 +54,15 @@ const router = createRouter({
             }
         },
         {
+            path: "/ConfirmOrder/:id",
+            name: "ConfirmOrder",
+            component: () => import("../views/ConfirmOrder.vue"),
+            meta: {
+                title: "确认订单",
+                requireAuth: true
+            }
+        },
+        {
             path: "/CustomCenter",
             name: "CustomCenter",
             component: () => import("../views/CustomCenter.vue"),

@@ -23,7 +23,24 @@ const orderInfo = {
         return axiosInstance.post("/orderInfo/submitOrder", {
             address_id, order_pay_type, goodsList
         })
-    }
+    },
+
+    /**
+     * 根据id获取订单信息
+     * @param {id} id 
+     * @returns {Promise<AxiosInstance>}
+     */
+    // findById(id) {
+    //     return axiosInstance.get("/orderInfo/findById", {
+    //         params: {
+    //             id
+    //         }
+    //     })
+    // }
+
+    findById(id) {
+        return axiosInstance.get(`/orderInfo/findById/${id}`);
+    },
 }
 
 export default orderInfo;

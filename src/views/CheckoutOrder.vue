@@ -16,13 +16,11 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="CustomInfo" @click="router.replace({ name: 'CustomCenter' })">
+                            <el-dropdown-item command="CustomInfo" @click="router.replace({ name: 'CustomInfo' })">
                                 人个中心</el-dropdown-item>
                             <el-dropdown-item divided command="logOut">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
-                    <span class="mx-2 text-gray-400">|</span>
-                    <span @click="$router.replace({ name: 'OrderInfoList' })">我的订单</span>
                 </el-dropdown>
             </div>
         </div>
@@ -30,19 +28,22 @@
 
     <div class="bg-gray-100 overflow-auto">
         <div class="base-width m-auto mt-[22px] p-[20px] bg-white">
-            <h2 class="text-gray-700 text-[18px] my-[10px]">收货地址</h2>
+            <h2 class="text-gray-700 text-[18px] my-[6px]">收货地址</h2>
             <el-skeleton animated :loading="isAddressInfoLoading">
                 <div class="address-list">
-                    <div class="address-item" :class="{ selected: addressIndex === index }"
+                    <div class="address-item  p-[20px]" :class="{ selected: addressIndex === index }"
                         @click="addressIndex = index" v-for="(item, index) in myAddressInfoList.listData"
                         :key="item.id">
                         <div class="text-[18px]">{{ item.address_name }}</div>
-                        <p class="text-gray-600">{{ item.address_tel.substr(0, 3) + "****" + item.address_tel.slice(-4)
+                        <p class="text-gray-600 text-[14px]">{{ item.address_tel.substr(0, 3) + "****" +
+                                item.address_tel.slice(-4)
                         }}
                         </p>
-                        <p class="address-all">{{ item.province }} {{ item.city }} {{ item.area }} {{
-                                item.address_detail
-                        }}
+                        <p class="address-all text-gray-600 text-[14px]">{{ item.province }} {{ item.city }} {{
+                                item.area
+                        }} {{
+        item.address_detail
+}}
                         </p>
                     </div>
                     <div
@@ -58,12 +59,12 @@
                 </div>
             </el-skeleton>
             <el-skeleton animated :loading="isGetCheckoutOrderGoodsLoading">
-                <h2 class="text-gray-700 text-[18px] my-[10px]">商品及优惠卷</h2>
+                <h2 class="text-gray-700 text-[18px] mt-[20px] my-[6px]">商品及优惠卷</h2>
                 <el-table :data="checkoutOrderGoods" class="w-full">
-                    <el-table-column label="编号" width="60" align="center">
+                    <el-table-column label="编号" width="70" align="center">
                         <template #default="{ $index }">{{ $index + 1 }}</template>
                     </el-table-column>
-                    <el-table-column label="图片" width="100" align="center">
+                    <el-table-column label="图片" width="120" align="center">
                         <template #default="{ row }">
                             <el-image :src="baseURL + row.goodsInfo.goods_photo[0]" class="w-[60px] h-[60px]" />
                         </template>
@@ -78,25 +79,26 @@
                     </el-table-column>
                     <el-table-column label="总价" width="120">
                         <template #default="{ row }">
-                            <span class="text-primary">{{ row.goodsInfo.goods_sale_price * row.car_goods_num }}</span>
+                            <span class="text-primaryColor">{{ row.goodsInfo.goods_sale_price * row.car_goods_num
+                            }}</span>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div class="flex flex-row h-[80px] items-center border-b border-solid border-gray-200">
                     <h2 class="text-gray-700 text-[18px] my-[10px]">配送方式</h2>
-                    <span class="text-primary ml-10 text-[14px]">包邮</span>
+                    <span class="text-primaryColor ml-10 text-[14px]">包邮</span>
                 </div>
                 <div class="flex flex-row h-[80px] items-center border-b border-solid border-gray-200">
                     <h2 class="text-gray-700 text-[18px] my-[10px]">发票</h2>
-                    <span class="text-primary ml-10 text-[14px]">电子普通发票个人商品明细修改 ></span>
+                    <span class="text-primaryColor ml-10 text-[14px]">电子普通发票个人商品明细修改 ></span>
                 </div>
                 <ul class="total-info-ul">
-                    <li><span>商品总件数：</span><span class="text-primary">{{ goodsTotalCount }}件</span></li>
-                    <li><span>商品总价：</span><span class="text-primary">{{ goodsTotalPrice }}元</span></li>
-                    <li><span>活动优惠：</span><span class="text-primary">-0元</span></li>
-                    <li><span>优惠券抵扣：</span><span class="text-primary">-0元</span></li>
-                    <li><span>运费：</span><span class="text-primary">0元</span></li>
-                    <li class="flex flex-row items-end"><span>应付总额：</span><span class="text-primary text-[28px]">{{
+                    <li><span>商品总件数：</span><span class="text-primaryColor">{{ goodsTotalCount }}件</span></li>
+                    <li><span>商品总价：</span><span class="text-primaryColor">{{ goodsTotalPrice }}元</span></li>
+                    <li><span>活动优惠：</span><span class="text-primaryColor">-0元</span></li>
+                    <li><span>优惠券抵扣：</span><span class="text-primaryColor">-0元</span></li>
+                    <li><span>运费：</span><span class="text-primaryColor">0元</span></li>
+                    <li class="flex flex-row items-end"><span>应付总额：</span><span class="text-primaryColor text-[28px]">{{
                             goodsTotalPrice
                     }}元</span></li>
                 </ul>
@@ -104,9 +106,9 @@
                     <button type="button" class="w-[180px] h-[40px] border border-solid border-gray-400 text-gray-400"
                         @click="$router.back()">返回购物车
                     </button>
-                    <button type="button" class="w-[160px] h-[40px] bg-primary text-white ml-10"
+                    <button type="button" class="w-[160px] h-[40px] bg-[#ff6700] text-white ml-10"
                         @click="confirmSubmitOrder">去结算
-                    </button>o09
+                    </button>
                 </div>
             </el-skeleton>
         </div>
@@ -128,7 +130,6 @@ const baseURL = inject("baseURL");
 const router = useRouter();
 const route = useRoute();
 
-const loginClientInfo = computed(() => store.getters.loginClientInfo);
 
 const queryAddressData = reactive({
     pageIndex: 1
@@ -167,13 +168,11 @@ const getNextPageAddress = () => {
         queryAddressData.pageIndex++;
         isAddressInfoLoading.value = true;
         API.addressInfo.getMyAddressInfoList(queryAddressData.pageIndex)
-            .then(({ data }) => {
-                myAddressInfoList.listData = data.listData;
-                myAddressInfoList.pageCount = data.pageCount;
-                myAddressInfoList.pageEnd = data.pageEnd;
-                myAddressInfoList.pageIndex = data.pageIndex;
-                myAddressInfoList.pageStart = data.pageStart;
-                myAddressInfoList.totalCount = data.totalCount;
+            .then((result) => {
+                myAddressInfoList.listData = result.listData;
+                myAddressInfoList.pageCount = result.pageCount;
+                myAddressInfoList.pageIndex = result.pageIndex;
+                myAddressInfoList.totalCount = result.totalCount;
             })
             .finally(() => {
                 isAddressInfoLoading.value = false;
@@ -191,11 +190,12 @@ const getCheckoutOrderGoodsList = () => {
     isGetCheckoutOrderGoodsLoading.value = true;
     let Ids = route.params.Ids;
     API.shopCarInfo.getMyCheckoutShopCarList(Ids)
-        .then(({ data }) => {
-            data.forEach(item => {
+        .then(result => {
+            console.log(result);
+            result.forEach(item => {
                 item.goodsInfo.goods_photo = JSON.parse(item.goodsInfo.goods_photo);
             });
-            checkoutOrderGoods.value = data;
+            checkoutOrderGoods.value = result;
         })
         .catch(() => {
             ElMessageBox.alert("获取确认订单的商品数据失败");
@@ -238,6 +238,7 @@ const confirmSubmitOrder = () => {
         return;
     }
     isLoading.value = true;
+
     let orderInfo = {
         address_id: myAddressInfoList.listData[addressIndex.value].id,
         order_pay_type: 1,
@@ -249,8 +250,10 @@ const confirmSubmitOrder = () => {
         })
     }
     API.orderInfo.submitOrder(orderInfo)
-        .then(({ data }) => {
-            router.replace({ name: 'ConfirmOrder', params: { id: data } });
+        .then((result) => {
+            console.log(result);
+            router.replace({ name: 'ConfirmOrder', params: { id: result } });
+
         })
         .catch(() => {
             ElMessageBox.alert("提交订单失败", "提示", {
@@ -304,7 +307,7 @@ onMounted(() => {
 }
 
 .address-list .address-item {
-    @apply relative border border-solid border-gray-400 p-6 box-border leading-8 cursor-pointer;
+    @apply relative border border-solid border-gray-400 p-12 box-border leading-7 cursor-pointer;
 
     &.selected {
         border-width: 2px;
