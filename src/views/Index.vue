@@ -8,43 +8,37 @@
                 <ul class="home-channel-list bg-[#5f5750]">
                     <li>
                         <a href="javascript:void(0)">
-                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82abdba456e8caaea5848a0cddce03db.png?w=48&h=48"
-                                alt="">
+                            <img src="../assets/img/11.png" alt="">
                             保障服务
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/806f2dfb2d27978e33fe3815d3851fa3.png?w=48&h=48"
-                                alt="">
+                            <img src="../assets/img/12.png" alt="">
                             企业团购
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/eded6fa3b897a058163e2485532c4f10.png?w=48&h=48"
-                                alt="">
+                            <img src="../assets/img/13.png" alt="">
                             F码通道
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/43a3195efa6a3cc7662efed8e7abe8bf.png?w=48&h=48"
-                                alt="">
+                            <img src="../assets/img/14.png" alt="">
                             米粉卡
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82abdba456e8caaea5848a0cddce03db.png?w=48&h=48"
-                                alt="">
+                            <img src="../assets/img/11.png" alt="">
                             以旧换新
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <img src="	https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9a76d7636b08e0988efb4fc384ae497b.png?w=48&h=48"
-                                alt="">
+                            <img src="../assets/img/16.png" alt="">
                             话费充值
                         </a>
                     </li>
@@ -53,20 +47,17 @@
             <ul class="flex-1 flex flex-row justify-between pl-[15px]">
                 <li class="w-[316px] h-[170px]">
                     <a href="javascript:void(0)">
-                        <img src="	https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d0c515086acb3c3a3e976ad20901aac5.jpg?w=632&h=340"
-                            alt="" class="w-full h-full">
+                        <img src="../assets/img/banner-bottom-01.jpg" alt="" class="w-full h-full">
                     </a>
                 </li>
                 <li class="w-[316px] h-[170px]">
                     <a href="javascript:void(0)">
-                        <img src="	https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/254c711cc71facf156ac955b8719dffa.jpg?w=632&h=340"
-                            alt="" class="w-full h-full">
+                        <img src="../assets/img/banner-bottom-02.jpg" alt="" class="w-full h-full">
                     </a>
                 </li>
                 <li class="w-[316px] h-[170px]">
                     <a href="javascript:void(0)">
-                        <img src="	https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/28c13d0d11b38ec17fa5d83bc6ba5912.jpg?w=632&h=340"
-                            alt="" class="w-full h-full">
+                        <img src="../assets/img/banner-bottom-03.jpg" alt="" class="w-full h-full">
                     </a>
                 </li>
             </ul>
@@ -74,8 +65,7 @@
         <div class="home-banner-box pt-20 bg-[rgb(245,245,245)]">
             <div class="base-width">
                 <a href="javascript:void(0)">
-                    <img src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/2656295f6c067f48a04a425acf15a096.jpg?thumb=1&w=1226&h=120&f=webp&q=90"
-                        alt="">
+                    <img src="../assets/img/home-banner.webp" alt="">
                 </a>
             </div>
         </div>
