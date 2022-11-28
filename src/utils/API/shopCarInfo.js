@@ -34,20 +34,31 @@ const shopCarInfo = {
      * @param {id} id 
      * @returns {Promise<AxiosInstance>}
      */
+    // deleteById(id) {
+    //     return axiosInstance.delete(`/shopCarInfo/deleteById/`, {
+    //         id
+    //     });
+    // },
     deleteById(id) {
-        return axiosInstance.delete(`/shopCarInfo/deleteById/`, {
-            id
-        });
+        return axiosInstance.delete(`/shopCarInfo/deleteById/${id}`);
     },
+
     // http://www.softeem.xin:9547/shopCarInfo/getMyCheckoutShopCarList/:Ids
 
+    // getMyCheckoutShopCarList(Ids) {
+    //     return axiosInstance.get("/shopCarInfo/getMyCheckoutShopCarList", {
+    //         params: {
+    //             Ids
+    //         }
+    //     })
+    // }
+
+    /**
+    * @param Ids 这里的Ids是一个字符串，如果有多个，用逗号隔开
+    */
     getMyCheckoutShopCarList(Ids) {
-        return axiosInstance.get("/shopCarInfo/getMyCheckoutShopCarList", {
-            params: {
-                Ids
-            }
-        })
-    }
+        return axiosInstance.get(`/shopCarInfo/getMyCheckoutShopCarList/${Ids}`);
+    },
 }
 
 export default shopCarInfo;
