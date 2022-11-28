@@ -1,6 +1,6 @@
 <template>
     <page-view>
-        <Header></Header>
+        <Header ref="getGoodSName"></Header>
         <IndexSwiper></IndexSwiper>
         <div class="home-hero-sub base-width">
             <div class="left-grid">
@@ -82,7 +82,8 @@
         <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
             <div class="flex flex-row base-width justify-between pb-10">
                 <span class="text-[24px]">手机</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer">查看更多
+                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
+                    @click="toSearch(1, '手机')">查看更多
                     <el-icon>
                         <ArrowRightBold />
                     </el-icon>
@@ -90,8 +91,9 @@
             </div>
             <div class="base-width flex flex-row">
                 <div class="brick-list">
-                    <template v-for="item, index in phoneListData">
-                        <div class="brick-item cursor-pointer" :class="{ 'last-item': index === 9 }">
+                    <template v-for="(item, index) in phoneListData" :key="item.id">
+                        <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
+                            :class="{ 'last-item': index === 9 }">
                             <a>
                                 <div class="w-[160px] h-[160px] mx-auto my-20">
                                     <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
@@ -109,7 +111,7 @@
                         </div>
                     </template>
                     <a href="javascript:void(0)" class="get-more-info flex flex-row items-center justify-evenly"
-                        @click="toSearch(2)">
+                        @click="toSearch(1, '手机')">
                         <div class="flex flex-col ">
                             <span class="text-[22px]">浏览更多</span>
                             <span class="text-[12px] text-gray-500">热门</span>
@@ -127,7 +129,8 @@
         <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
             <div class="flex flex-row base-width justify-between pb-10">
                 <span class="text-[24px]">电视</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer">查看更多
+                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
+                    @click="toSearch(2, '电视')">查看更多
                     <el-icon>
                         <ArrowRightBold />
                     </el-icon>
@@ -154,7 +157,7 @@
                         </div>
                     </template>
                     <a href="javascript:void(0)" class="get-more-info flex flex-row items-center justify-evenly"
-                        @click="toSearch(2)">
+                        @click="toSearch(2, '电视')">
                         <div class="flex flex-col ">
                             <span class="text-[22px]">浏览更多</span>
                             <span class="text-[12px] text-gray-500">热门</span>
@@ -172,7 +175,8 @@
         <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
             <div class="flex flex-row base-width justify-between pb-10">
                 <span class="text-[24px]">笔记本</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer">查看更多
+                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
+                    @click="toSearch(3, '笔记本')">查看更多
                     <el-icon>
                         <ArrowRightBold />
                     </el-icon>
@@ -205,7 +209,7 @@
         <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
             <div class="flex flex-row base-width justify-between pb-10">
                 <span class="text-[24px]">其他</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer">查看更多
+                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer" @click="toSearch()">查看更多
                     <el-icon>
                         <ArrowRightBold />
                     </el-icon>
@@ -239,20 +243,23 @@
 </template>
 
 <script setup>
-import { ref, inject, } from "vue";
+import { ref, inject, provide } from "vue";
 import API from "../utils/API"
 import { ArrowRightBold, Promotion } from "@element-plus/icons-vue"
+import { useRouter } from "vue-router";
 
 const baseURL = inject("baseURL");
+const router = useRouter()
 
 const phoneListData = ref()
 const tvListData = ref()
 const pcListData = ref()
 const otherListData = ref([])
 
+const getGoodSName = ref()
+
 const getTopProductsInfoListAndGoods = async () => {
     let res = await API.productsInfo.getTopProductsInfoListAndGoods()
-    console.log(res);
     phoneListData.value = res[0].goodsList.splice(0, 10)
     tvListData.value = res[1].goodsList.splice(0, 10)
     pcListData.value = res[2].goodsList.splice(0, 5)
@@ -267,10 +274,12 @@ const getTopProductsInfoListAndGoods = async () => {
 }
 getTopProductsInfoListAndGoods()
 
-const toSearch = () => {
-
+const toGoosDetail = item => {
+    window.open(router.resolve({ name: "GoodsDetail", params: { id: item.id } }).href);
 }
-
+const toSearch = (products_id, goods_name) => {
+    window.open(router.resolve({ name: "Search", query: { products_id, goods_name } }).href);
+}
 </script>
 
 <style lang="scss" scoped>

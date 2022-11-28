@@ -51,12 +51,12 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const baseURL = inject("baseURL");
 
+
 let currentIndex = ref(-1)
 
 const goodListData = ref([])
 const getTopProductsInfoListAndGoods = () => {
     API.productsInfo.getTopProductsInfoListAndGoods().then(res => {
-        // console.log(res);
         goodListData.value = res
     })
 }
@@ -66,7 +66,7 @@ const toSearch = (products_id) => {
     window.open(router.resolve({ name: "Search", query: { products_id } }).href);
 }
 const toGoodsDetail = (item) => {
-    window.open(router.resolve({ name: "goodsDetail", params: { id: item.id } }).href);
+    window.open(router.resolve({ name: "GoodsDetail", params: { id: item.id } }).href);
 }
 </script>
 

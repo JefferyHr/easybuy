@@ -181,6 +181,7 @@ const queryData = () => {
             resultData.listData = result.listData;
             resultData.pageCount = result.pageCount;
             resultData.totalCount = result.totalCount;
+            resultData.pageIndex = result.pageIndex;
         })
 }
 

@@ -12,8 +12,8 @@
                 <el-form-item label="新密码" class="pr-[20px] " prop="newPassword">
                     <el-input placeholder="请输入新密码" v-model="queryFormData.newPassword" />
                 </el-form-item>
-                <el-form-item label="确认密码" class="pr-[20px] ">
-                    <el-input placeholder="确认密码" v-model="queryFormData1.newPassword1" />
+                <el-form-item label="确认密码" class="pr-[20px] " prop="newPassword1">
+                    <el-input placeholder="确认密码" v-model="queryFormData.newPassword1" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm">提交
@@ -37,12 +37,10 @@ const store = mainStore();
 const queryFormData = reactive({
     oldPassword: "",
     newPassword: "",
-
-})
-
-const queryFormData1 = reactive({
     newPassword1: "",
 })
+
+
 
 const queryData = () => {
     API.customInfo.uploadMyPassword(queryFormData)
@@ -52,10 +50,10 @@ const queryData = () => {
 }
 
 const validatePwd = (rule, value, callBack) => {
-    if (queryFormData1.newPassword1 === "") {
+    if (queryFormData.newPassword1 === "") {
         callBack(new Error("密码不能为空"))
     }
-    if (queryFormData1.newPassword1 != queryFormData.newPassword) {
+    if (queryFormData.newPassword1 != queryFormData.newPassword) {
         callBack(new Error("两次密码必须相同"));
     }
     callBack();

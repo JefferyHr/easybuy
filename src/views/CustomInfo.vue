@@ -12,8 +12,12 @@
                 </div>
                 <div class="flex flex-col justify-around mr-[200px] text-[14px]">
                     <div>账号安全：<span class="text-[#1ca54e]">较高</span></div>
-                    <div>绑定手机：<span>{{queryFormData.custom_tel}}</span></div>
-                    <div>绑定邮箱：<span>{{queryFormData.custom_email}}</span></div>
+                    <div>绑定手机：<span>{{ queryFormData.custom_tel.slice(0, 3) + "****" +
+                            queryFormData.custom_tel.slice(-4)
+                    }}</span></div>
+                    <div>绑定邮箱：<span>{{ queryFormData.custom_email.slice(0, 3) + "****" +
+                            queryFormData.custom_email.slice(7)
+                    }}</span></div>
                 </div>
             </div>
         </el-card>

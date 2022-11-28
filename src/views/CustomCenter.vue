@@ -1,8 +1,8 @@
 <template>
     <Header></Header>
-    <page-view class="flex flex-col justify-center items-center bg-[#f3f4f6]">
-        <div class="flex flex-1 overflow-auto  base-width  mt-[22px]">
-            <div class="left flex flex-row ">
+    <div class="bg-[#f3f4f6]">
+        <div class="flex flex-1 overflow-auto  base-width ">
+            <div class="left flex flex-row mt-[22px]">
                 <el-menu :unique-opened="true" class=" w-[200px]" :router='true'>
                     <el-menu-item index="/CustomCenter/CustomInfo" class="flex flex-row justify-center ">
                         <template #title>
@@ -47,12 +47,12 @@
                 </el-menu>
 
             </div>
-            <div class="right ml-[22px] flex-1 flex overflow-auto  bg-[#ffffff]">
+            <div class="right ml-[22px]  mt-[22px] flex-1 flex overflow-auto  bg-[#ffffff]">
                 <router-view></router-view>
             </div>
         </div>
 
-    </page-view>
+    </div>
     <Footer></Footer>
 
 </template>
