@@ -24,7 +24,8 @@
         <div class="base-width py-[30px] ">
             <div class="w-full h-[50px] flex flex-row justify-center items-center text-[22px] text-gray-500">买了该商品的人还买了
             </div>
-            <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
+            <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]" v-loading="isLoading"
+                element-loading-text="正在加载...">
                 <div class="base-width flex flex-row">
                     <div class="brick-list">
                         <template v-for="item, index in RecommendGoodsList">
@@ -64,6 +65,7 @@ import { CircleCheck } from "@element-plus/icons-vue"
 const route = useRoute()
 const router = useRouter()
 const store = mainStore()
+const isLoading = ref(false)
 
 const baseURL = inject("baseURL")
 const infoList = reactive({
@@ -72,20 +74,17 @@ const infoList = reactive({
 })
 const goods_name = ref('')
 const RecommendGoodsList = ref()
-const addToShopCar = async () => {
-    let res = await API.shopCarInfo.addToShopCar(infoList)
-    console.log(res);
-}
+
 const findById = async () => {
+    isLoading.value = true
     let res = await API.goodsInfo.findById(infoList.goods_id)
     // console.log(res);
     goods_name.value = res.goods_name
-
+    isLoading.value = false
 }
 (() => {
     findById()
 })()
-addToShopCar()
 const getRecommendGoodsList = async () => {
     let res = await API.goodsInfo.getRecommendGoodsList()
     RecommendGoodsList.value = res.listData

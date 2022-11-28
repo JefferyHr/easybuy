@@ -77,7 +77,6 @@ const queryData = () => {
     queryFormData.goods_name = route.query.goods_name;
     queryFormData.products_id = route.query.products_id;
     queryData();
-    provide('goodsname', route.query.goods_name)
 })()
 const pageChange = page => {
     queryFormData.pageIndex = page;

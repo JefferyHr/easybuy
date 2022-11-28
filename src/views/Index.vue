@@ -1,7 +1,8 @@
 <template>
     <page-view>
-        <Header ref="getGoodSName"></Header>
+        <Header></Header>
         <IndexSwiper></IndexSwiper>
+
         <div class="home-hero-sub base-width">
             <div class="left-grid">
                 <ul class="home-channel-list bg-[#5f5750]">
@@ -78,163 +79,172 @@
                 </a>
             </div>
         </div>
-        <!-- 手机 -->
-        <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
-            <div class="flex flex-row base-width justify-between pb-10">
-                <span class="text-[24px]">手机</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
-                    @click="toSearch(1, '手机')">查看更多
-                    <el-icon>
-                        <ArrowRightBold />
-                    </el-icon>
-                </span>
-            </div>
-            <div class="base-width flex flex-row">
-                <div class="brick-list">
-                    <template v-for="(item, index) in phoneListData" :key="item.id">
-                        <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
-                            :class="{ 'last-item': index === 9 }">
-                            <a>
-                                <div class="w-[160px] h-[160px] mx-auto my-20">
-                                    <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
-                                </div>
-                                <div class="w-full p-10 text-box ">
-                                    <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
-                                    <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
-                                    }}</div>
-                                    <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price }}元起
-                                        <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+        <div v-loading="isLoading" element-loading-text="正在加载...">
+            <!-- 手机 -->
+            <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
+                <div class="flex flex-row base-width justify-between pb-10">
+                    <span class="text-[24px]">手机</span>
+                    <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
+                        @click="toSearch(1, '手机')">查看更多
+                        <el-icon>
+                            <ArrowRightBold />
+                        </el-icon>
+                    </span>
+                </div>
+                <div class="base-width flex flex-row">
+                    <div class="brick-list">
+                        <template v-for="(item, index) in phoneListData" :key="item.id">
+                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
+                                :class="{ 'last-item': index === 9 }">
+                                <a>
+                                    <div class="w-[160px] h-[160px] mx-auto my-20">
+                                        <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
                                     </div>
-                                </div>
-                            </a>
+                                    <div class="w-full p-10 text-box ">
+                                        <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
+                                        <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
+                                        }}</div>
+                                        <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price
+                                        }}元起
+                                            <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+                                        </div>
+                                    </div>
+                                </a>
 
-                        </div>
-                    </template>
-                    <a href="javascript:void(0)" class="get-more-info flex flex-row items-center justify-evenly"
-                        @click="toSearch(1, '手机')">
-                        <div class="flex flex-col ">
-                            <span class="text-[22px]">浏览更多</span>
-                            <span class="text-[12px] text-gray-500">热门</span>
-                        </div>
-                        <div>
-                            <el-icon size="36" color="#ff671b">
-                                <Promotion />
-                            </el-icon>
-                        </div>
-                    </a>
+                            </div>
+                        </template>
+                        <a href="javascript:void(0)" class="get-more-info flex flex-row items-center justify-evenly"
+                            @click="toSearch(1, '手机')">
+                            <div class="flex flex-col ">
+                                <span class="text-[22px]">浏览更多</span>
+                                <span class="text-[12px] text-gray-500">热门</span>
+                            </div>
+                            <div>
+                                <el-icon size="36" color="#ff671b">
+                                    <Promotion />
+                                </el-icon>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- 电视 -->
-        <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
-            <div class="flex flex-row base-width justify-between pb-10">
-                <span class="text-[24px]">电视</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
-                    @click="toSearch(2, '电视')">查看更多
-                    <el-icon>
-                        <ArrowRightBold />
-                    </el-icon>
-                </span>
-            </div>
-            <div class="base-width flex flex-row">
-                <div class="brick-list">
-                    <template v-for="item, index in tvListData">
-                        <div class="brick-item cursor-pointer" :class="{ 'last-item': index === 9 }">
-                            <a>
-                                <div class="w-[160px] h-[160px] mx-auto my-20">
-                                    <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
-                                </div>
-                                <div class="w-full p-10 text-box ">
-                                    <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
-                                    <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
-                                    }}</div>
-                                    <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price }}元起
-                                        <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+            <!-- 电视 -->
+            <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
+                <div class="flex flex-row base-width justify-between pb-10">
+                    <span class="text-[24px]">电视</span>
+                    <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
+                        @click="toSearch(2, '电视')">查看更多
+                        <el-icon>
+                            <ArrowRightBold />
+                        </el-icon>
+                    </span>
+                </div>
+                <div class="base-width flex flex-row">
+                    <div class="brick-list">
+                        <template v-for="item, index in tvListData">
+                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
+                                :class="{ 'last-item': index === 9 }">
+                                <a>
+                                    <div class="w-[160px] h-[160px] mx-auto my-20">
+                                        <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
                                     </div>
-                                </div>
-                            </a>
+                                    <div class="w-full p-10 text-box ">
+                                        <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
+                                        <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
+                                        }}</div>
+                                        <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price
+                                        }}元起
+                                            <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+                                        </div>
+                                    </div>
+                                </a>
 
-                        </div>
-                    </template>
-                    <a href="javascript:void(0)" class="get-more-info flex flex-row items-center justify-evenly"
-                        @click="toSearch(2, '电视')">
-                        <div class="flex flex-col ">
-                            <span class="text-[22px]">浏览更多</span>
-                            <span class="text-[12px] text-gray-500">热门</span>
-                        </div>
-                        <div>
-                            <el-icon size="36" color="#ff671b">
-                                <Promotion />
-                            </el-icon>
-                        </div>
-                    </a>
+                            </div>
+                        </template>
+                        <a href="javascript:void(0)" class="get-more-info flex flex-row items-center justify-evenly"
+                            @click="toSearch(2, '电视')">
+                            <div class="flex flex-col ">
+                                <span class="text-[22px]">浏览更多</span>
+                                <span class="text-[12px] text-gray-500">热门</span>
+                            </div>
+                            <div>
+                                <el-icon size="36" color="#ff671b">
+                                    <Promotion />
+                                </el-icon>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- 笔记本 -->
-        <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
-            <div class="flex flex-row base-width justify-between pb-10">
-                <span class="text-[24px]">笔记本</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
-                    @click="toSearch(3, '笔记本')">查看更多
-                    <el-icon>
-                        <ArrowRightBold />
-                    </el-icon>
-                </span>
-            </div>
-            <div class="base-width flex flex-row">
-                <div class="brick-list">
-                    <template v-for="item, index in pcListData">
-                        <div class="brick-item cursor-pointer" :class="{ 'last-item': index === 9 }">
-                            <a>
-                                <div class="w-[160px] h-[160px] mx-auto my-20">
-                                    <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
-                                </div>
-                                <div class="w-full p-10 text-box ">
-                                    <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
-                                    <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
-                                    }}</div>
-                                    <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price }}元起
-                                        <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+            <!-- 笔记本 -->
+            <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
+                <div class="flex flex-row base-width justify-between pb-10">
+                    <span class="text-[24px]">笔记本</span>
+                    <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
+                        @click="toSearch(3, '笔记本')">查看更多
+                        <el-icon>
+                            <ArrowRightBold />
+                        </el-icon>
+                    </span>
+                </div>
+                <div class="base-width flex flex-row">
+                    <div class="brick-list">
+                        <template v-for="item, index in pcListData">
+                            <div class="brick-item cursor-pointer" @click="toGoosDetail(item)"
+                                :class="{ 'last-item': index === 9 }">
+                                <a>
+                                    <div class="w-[160px] h-[160px] mx-auto my-20">
+                                        <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
                                     </div>
-                                </div>
-                            </a>
+                                    <div class="w-full p-10 text-box ">
+                                        <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
+                                        <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
+                                        }}</div>
+                                        <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price
+                                        }}元起
+                                            <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+                                        </div>
+                                    </div>
+                                </a>
 
-                        </div>
-                    </template>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- 其他 -->
-        <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
-            <div class="flex flex-row base-width justify-between pb-10">
-                <span class="text-[24px]">其他</span>
-                <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer" @click="toSearch()">查看更多
-                    <el-icon>
-                        <ArrowRightBold />
-                    </el-icon>
-                </span>
-            </div>
-            <div class="base-width flex flex-row">
-                <div class="brick-list">
-                    <template v-for="item, index in otherListData">
-                        <div class="brick-item-last cursor-pointer">
-                            <a>
-                                <div class=" w-[160px] h-[160px] mx-auto my-20">
-                                    <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
-                                </div>
-                                <div class="w-full p-10 text-box ">
-                                    <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
-                                    <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
-                                    }}</div>
-                                    <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price }}元起
-                                        <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+            <!-- 其他 -->
+            <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
+                <div class="flex flex-row base-width justify-between pb-10">
+                    <span class="text-[24px]">其他</span>
+                    <span class="flex flex-row items-center hover:text-primaryColor cursor-pointer"
+                        @click="toSearch()">查看更多
+                        <el-icon>
+                            <ArrowRightBold />
+                        </el-icon>
+                    </span>
+                </div>
+                <div class="base-width flex flex-row">
+                    <div class="brick-list">
+                        <template v-for="item, index in otherListData">
+                            <div class="brick-item-last cursor-pointer" @click="toGoosDetail(item)">
+                                <a>
+                                    <div class=" w-[160px] h-[160px] mx-auto my-20">
+                                        <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
                                     </div>
-                                </div>
-                            </a>
+                                    <div class="w-full p-10 text-box ">
+                                        <div class="text-[14px] w-full text-center">{{ item.goods_name }}</div>
+                                        <div class="w-full text-[12px] truncate m-5 text-gray-300">{{ item.goods_brief_o
+                                        }}</div>
+                                        <div class="text-primaryColor text-[14px] text-center">{{ item.goods_sale_price
+                                        }}元起
+                                            <del class="text-gray-400 ml-2">{{ item.goods_price }}元</del>
+                                        </div>
+                                    </div>
+                                </a>
 
-                        </div>
-                    </template>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
         </div>
@@ -251,14 +261,15 @@ import { useRouter } from "vue-router";
 const baseURL = inject("baseURL");
 const router = useRouter()
 
+const isLoading = ref(false)
 const phoneListData = ref()
 const tvListData = ref()
 const pcListData = ref()
 const otherListData = ref([])
 
-const getGoodSName = ref()
 
 const getTopProductsInfoListAndGoods = async () => {
+    isLoading.value = true
     let res = await API.productsInfo.getTopProductsInfoListAndGoods()
     phoneListData.value = res[0].goodsList.splice(0, 10)
     tvListData.value = res[1].goodsList.splice(0, 10)
@@ -271,6 +282,8 @@ const getTopProductsInfoListAndGoods = async () => {
         }
     })
     otherListData.value = otherListData.value.flat(Infinity)
+    isLoading.value = false
+
 }
 getTopProductsInfoListAndGoods()
 
