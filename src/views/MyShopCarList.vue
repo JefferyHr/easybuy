@@ -71,8 +71,6 @@
         <div class="base-width m-auto bg-white  my-[22px]">
             <div class="flex flex-row h-[50px] items-center">
                 <div class="ml-4 text-gray-500 text-[12px] flex">
-                    <p>继续购物</p>
-                    <span class="mx-2">|</span>
                     <div>已选择 <span class="text-primary">{{ selectedRows.length }}</span> 件商品</div>
                 </div>
                 <div class="flex flex-row justify-end items-baseline text-primary flex-1 box-border pr-[20px]">

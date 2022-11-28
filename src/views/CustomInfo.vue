@@ -1,6 +1,6 @@
 <template>
     <page-view>
-        <el-card>
+        <el-card class="pb-[600px]">
             <div class="flex flex-row justify-between pt-[22px] pb-[11px]">
                 <div class="flex flex-row items-center">
                     <img :src="baseURL + queryFormData.custom_photo" class="w-[100px] h-[100px] img-box ml-[33px]" />
