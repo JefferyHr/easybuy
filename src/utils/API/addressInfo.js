@@ -15,17 +15,12 @@ const addressInfo = {
     },
 
     /**
-     * 根据id查询
+     * 根据id删除
      * @param {id} id 
      * @returns {Promise<AxiosInstance>}
      */
     deleteById(id) {
-        return axiosInstance.delete("/addressInfo/deleteById", {
-            params: {
-                id
-            }
-
-        })
+        return axiosInstance.delete(`/addressInfo/deleteById/${id}`)
     },
 
     /**
