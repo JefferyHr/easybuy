@@ -44,31 +44,34 @@
                     @current-change="currentChange" />
             </div>
         </el-card>
+        <!-- 新增地址 -->
+        <el-drawer v-model="drawer" :with-header="false" size="40%">
+            <template #default>
+                <el-form :model="addFormData" :rules="rules" label-width="80px" ref="addressFormEl">
+                    <el-form-item label="姓名" prop="address_name">
+                        <el-input placeholder="收货人姓名" v-model="addFormData.address_name" />
+                    </el-form-item>
+                    <el-form-item label="联系电话" prop="address_tel">
+                        <el-input placeholder="请输入联系电话" v-model="addFormData.address_tel" />
+                    </el-form-item>
+                    <el-form-item label="用户地址" prop="address">
+                        <el-cascader :options="options" v-model="addFormData.address" style="width: 100%" />
+                    </el-form-item>
+                    <el-form-item label="详细地址" prop="address_detail">
+                        <el-input placeholder="请输入详细地址" type="textarea" :rows="5"
+                            v-model="addFormData.address_detail" />
+                    </el-form-item>
+                    <el-form-item label="标签" prop="address_tag">
+                        <el-input placeholder="标签" v-model="addFormData.address_tag" />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button color="#ff6700" @click="submitForm">保存
+                        </el-button>
+                        <el-button @click="resetForm">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </template>
 
-        <el-drawer :model="addFormData" :rules="addRules" ref="formEl" :with-header="false" size="40%">
-            <el-form>
-                <el-form-item label="姓名" prop="address_name">
-                    <el-input placeholder="收货人姓名" v-model="addFormData.address_name" />
-                </el-form-item>
-                <el-form-item label="联系电话" prop="address_tel">
-                    <el-input placeholder="请输入联系电话" v-model="addFormData.address_tel" />
-                </el-form-item>
-                <el-form-item label="用户地址">
-                    <el-cascader :options="options" style="width: 100%" />
-
-                </el-form-item>
-                <el-form-item label="详细地址" prop="address_detail">
-                    <el-input placeholder="请输入详细地址" type="textarea" :rows="5" v-model="addFormData.address_detail" />
-                </el-form-item>
-                <el-form-item label="地址标签" prop="address_tag">
-                    <el-input placeholder="请输入地址标签" v-model="addFormData.address_tag" />
-                </el-form-item>
-                <el-form-item>
-                    <el-button color="#ff6700" @click="submitForm">保存
-                    </el-button>
-                    <el-button @click="resetForm">重置</el-button>
-                </el-form-item>
-            </el-form>
         </el-drawer>
 
     </page-view>
@@ -101,8 +104,26 @@ const addFormData = reactive({
     area: "",
     address_tag: "",
     address_tel: "",
+    address: "",
     address_detail: "",
 })
+//表单验证的规则
+
+const rules = {
+    address_name: [
+        { required: true, message: '收货人姓名不能为空', trigger: 'blur' },
+    ],
+    address_tel: [
+        { required: true, message: '联系电话不能为空', trigger: 'blur' },
+        { pattern: /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/, message: '请输入正确的手机号格式', trigger: "blur" }
+    ],
+    address: [
+        { required: true, message: '地址不能为空', trigger: 'blur' },
+    ],
+    address_detail: [
+        { required: true, message: '详细地址不能为空', trigger: 'blur' },
+    ],
+}
 
 const handleChange1 = (value) => {
     if (value[1] != null && value[2] != null) {
@@ -116,6 +137,7 @@ const handleChange1 = (value) => {
     }
     return dz
 }
+
 
 //根据页面来查询
 const queryData = () => {
@@ -137,7 +159,6 @@ const currentChange = (index) => {
 
 //删除操作
 const deleteCurrentItem = (id) => {
-    console.log("你确定要删除了");
     API.addressInfo.deleteById(id)
         .then(result => {
             ElNotification({
@@ -155,25 +176,17 @@ const deleteCurrentItem = (id) => {
         })
 }
 
-//表单验证的规则
-const addRules = {
-    address_name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-    address_tel: [{ required: true, message: "请输入电话号码", trigger: "blur" }],
-    city: [{ required: true, message: "请输入城市", trigger: "blur" }],
-    area: [{ required: true, message: "请输入地区", trigger: "blur" }],
-    province: [{ required: true, message: "请选择省份", trigger: "blur" }],
-    address_tag: [{ required: true, message: "请选择标签", trigger: "blur" }],
-    address_detail: [{ required: true, message: "请输入详细地址", trigger: "blur" }],
-}
 
-//新增菜品
+//新增地址
 const isSubmiting = ref(false);
 const addAddressInfo = () => {
     isSubmiting.value = true;
-
-    addFormData.province = handleChange1(addFormData.province);
-    addFormData.city = handleChange1(addFormData.city);
-    addFormData.area = handleChange1(addFormData.area)
+    // 格式化地址
+    addFormData.address = handleChange1(addFormData.address)
+    addFormData.address = addFormData.address.split(" ")
+    addFormData.province = addFormData.address[0]
+    addFormData.city = addFormData.address[1]
+    addFormData.area = addFormData.address[2]
 
     API.addressInfo.addMyAddressInfo(addFormData)
         .then(result => {
@@ -183,6 +196,7 @@ const addAddressInfo = () => {
                 title: "提示",
                 message: "新增地址成功",
             })
+            location.reload()
         }).catch(error => {
             ElNotification({
                 type: "warning",
@@ -193,32 +207,29 @@ const addAddressInfo = () => {
         })
         .finally(() => {
             isSubmiting.value = false;
+            drawer.value = false
         })
 }
 
 //提交表单
-// const formEl = ref(null);
+const addressFormEl = ref(null);
 const submitForm = () => {
-    //验证表单的数据是否合格
-    // console.log(formEl.value)
-    // formEl.value.validate(valid => {
-    //     //这个valid就是验证的结果
-    //     if (valid) {
-    //         //表单验证成功，我们要提交数据
-    addAddressInfo();
-    //     } else {
-    //         ElNotification({
-    //             type: "warning",
-    //             title: "提示",
-    //             message: "请正确的填写表单的内容"
-    //         })
-    //     }
-    // });
+    addressFormEl.value.validate(valid => {
+        if (valid) {
+            addAddressInfo();
+        } else {
+            ElNotification({
+                type: "warning",
+                title: "提示",
+                message: "请正确的填写表单的内容"
+            })
+        }
+    });
 }
 
 //重置表单
 const resetForm = () => {
-    formEl.value.resetFields();
+    addressFormEl.value.resetFields();
 }
 
 onMounted(() => {
