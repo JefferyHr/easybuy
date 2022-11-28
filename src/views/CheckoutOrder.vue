@@ -3,7 +3,7 @@
         <div class="base-width m-auto flex flex-row items-end">
             <img src="../../src/assets/img/logo.png" class="w-[56px] h-[56px] cursor-pointer"
                 @click="$router.replace({ name: 'Index' })" alt="">
-            <div class="flex-1 ml-10 flex flex-row items-baseline">
+            <div class="flex-1 flex flex-row items-baseline">
                 <div class="text-[22px] ml-[22px]">确认订单</div>
             </div>
             <div>
