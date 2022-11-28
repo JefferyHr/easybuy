@@ -23,8 +23,7 @@
                 <div v-else>
                     <span @click="$router.push({ name: 'Login' })">请登录</span>
                 </div>
-                <div class="cursor-pointer hover:text-primaryColor mr-6"
-                    @click="$router.push({ name: 'CustomCenter' })">
+                <div class="cursor-pointer hover:text-primaryColor mr-6" @click="$router.push({ name: 'CustomInfo' })">
                     个人中心</div>
                 <div class="shop-car bg-[#424242] cursor-pointer h-full  w-[80px] flex items-center flex-row justify-center hover:text-primaryColor"
                     @click="$router.push({ name: 'MyShopCarList' })">

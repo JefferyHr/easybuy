@@ -4,7 +4,7 @@ import addressInfo from "./addressInfo";
 import orderInfo from "./orderInfo"
 import productsInfo from "./productsInfo";
 import goodsInfo from "./goodsInfo";
-import shopCarInfo from "./shopCarInfo"
+import shopCarInfo from "./shopCarInfo";
 
 export default {
     customInfo,
@@ -13,5 +13,5 @@ export default {
     orderInfo,
     productsInfo,
     goodsInfo,
-    shopCarInfo
+    shopCarInfo,
 }

@@ -53,8 +53,9 @@
                 <el-form-item label="联系电话" prop="address_tel">
                     <el-input placeholder="请输入联系电话" v-model="addFormData.address_tel" />
                 </el-form-item>
-                <el-form-item label="用户地址" prop="`${province} ${city} ${area}`">
+                <el-form-item label="用户地址">
                     <el-cascader :options="options" style="width: 100%" />
+
                 </el-form-item>
                 <el-form-item label="详细地址" prop="address_detail">
                     <el-input placeholder="请输入详细地址" type="textarea" :rows="5" v-model="addFormData.address_detail" />
@@ -196,7 +197,7 @@ const addAddressInfo = () => {
 }
 
 //提交表单
-const formEl = ref(null);
+// const formEl = ref(null);
 const submitForm = () => {
     //验证表单的数据是否合格
     // console.log(formEl.value)

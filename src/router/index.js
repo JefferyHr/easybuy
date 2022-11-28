@@ -45,6 +45,15 @@ const router = createRouter({
             }
         },
         {
+            path: "/CheckoutOrder/:Ids",
+            name: "CheckoutOrder",
+            component: () => import("../views/CheckoutOrder.vue"),
+            meta: {
+                title: '我的订单',
+                requireAuth: true
+            }
+        },
+        {
             path: "/CustomCenter",
             name: "CustomCenter",
             component: () => import("../views/CustomCenter.vue"),
@@ -91,6 +100,12 @@ const router = createRouter({
             ]
 
         },
+        {
+            path: "/Register",
+            name: "Register",
+            component: () => import("../views/Register")
+        },
+
         {
             path: "/Search",
             name: "Search",
