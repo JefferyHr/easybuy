@@ -3,7 +3,7 @@
         <div class="base-width m-auto flex flex-row items-end">
             <img src="../../src/assets/img/logo.png" class="w-[56px] h-[56px] cursor-pointer"
                 @click="$router.replace({ name: 'index' })" alt="">
-            <div class="flex-1 ml-10 flex flex-row items-baseline">
+            <div class="flex-1  flex flex-row items-baseline">
                 <div class="text-[22px] ml-[22px]">支付订单</div>
             </div>
             <div>
@@ -32,7 +32,11 @@
             <div class="flex-1 text-[14px] text-gray-600 ml-[20px] leading-8">
                 <p class="text-[22px] text-gray-800">订单提交成功！去支付喽~</p>
                 <p>请在 <span class="text-primaryColor">2小时内完成支付，超时后将取消订单</span></p>
-                <p>收货地址：</p>
+                <p class="text-gray-600">收货地址：
+                    {{ resultData.custom_addr }}
+                    {{ resultData.address_detail
+                    }}
+                </p>
             </div>
             <div class="text-[14px] text-gray-600">
                 <div>订单总金额：<span class="text-primaryColor text-[22px]">{{ totalMoney }}</span><span
@@ -41,7 +45,7 @@
             </div>
         </div>
         <div class="base-width bg-white my-[20px] m-auto p-[20px]">
-            <h2 class="border-b border-solid border-gray-200 pb-5">请选择以下支付方式支付</h2>
+            <h2 class="border-b border-solid border-gray-200 pb-6 text-[18px]">请选择以下支付方式支付</h2>
             <div class="pay-type-list">
                 <div class="w-[180px] h-[60px] border border-solid border-gray-200" @click="toAliPay">
                     <img src="../../src/assets/img/01.png" class="block w-full h-full" alt="">
@@ -63,18 +67,23 @@ import { ElMessageBox } from "element-plus";
 import { useRouter, useRoute } from "vue-router";
 
 const store = mainStore()
-const baseURL = inject("baseURL");
 const router = useRouter();
 const route = useRoute();
 
 const isLoading = ref(false);
-const currentOrderInfo = ref();
+const resultData = ref({
+    address_detail: "",
+    custom_addr: "",
+
+});
 const totalMoney = ref(0);
 const findById = id => {
     isLoading.value = true;
     API.orderInfo.findById(id).then(result => {
         console.log(result);
-        currentOrderInfo.value = result;
+        resultData.value = result;
+        resultData.value.custom_addr = result.customInfo.custom_addr;
+        resultData.value.address_detail = result.addressInfo.address_detail;
         result.orderDetailInfoList.forEach(item => {
             totalMoney.value += item.goodsInfo.goods_sale_price * item.goods_num;
         });

@@ -137,9 +137,7 @@ const queryAddressData = reactive({
 const myAddressInfoList = reactive({
     listData: [],
     pageCount: 0,
-    pageEnd: 0,
     pageIndex: 1,
-    pageStart: 1,
     totalCount: 0,
 })
 const isAddressInfoLoading = ref(false);
@@ -150,9 +148,7 @@ const queryData = pageIndex => {
             console.log(result);
             myAddressInfoList.listData = result.listData;
             myAddressInfoList.pageCount = result.pageCount;
-            myAddressInfoList.pageEnd = result.pageEnd;
             myAddressInfoList.pageIndex = result.pageIndex;
-            myAddressInfoList.pageStart = result.pageStart;
             myAddressInfoList.totalCount = result.totalCount;
         })
         .finally(() => {
