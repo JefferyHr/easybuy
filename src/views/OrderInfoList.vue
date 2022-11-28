@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="flex flex-col mt-14">
-                                <el-button>订单详情</el-button>
+                                <el-button @click="showDrawer(item.id)">订单详情</el-button>
                                 <el-button class="my-10">申请售后</el-button>
                                 <el-button>联系商家</el-button>
                             </div>
@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col mt-14">
-                                    <el-button>订单详情</el-button>
+                                    <el-button @click="showDrawer(item.id)">订单详情</el-button>
                                     <el-button class="my-10">申请售后</el-button>
                                     <el-button>联系商家</el-button>
                                 </div>
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col mt-14">
-                                    <el-button>订单详情</el-button>
+                                    <el-button @click="showDrawer(item.id)">订单详情</el-button>
                                     <el-button class="my-10">申请售后</el-button>
                                     <el-button>联系商家</el-button>
                                 </div>
@@ -198,7 +198,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col mt-14">
-                                    <el-button>订单详情</el-button>
+                                    <el-button @click="showDrawer(item.id)">订单详情</el-button>
                                     <el-button class="my-10">申请售后</el-button>
                                     <el-button>联系商家</el-button>
                                 </div>
@@ -248,7 +248,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col mt-14">
-                                    <el-button>订单详情</el-button>
+                                    <el-button @click="showDrawer(item.id)">订单详情</el-button>
                                     <el-button class="my-10">申请售后</el-button>
                                     <el-button>联系商家</el-button>
                                 </div>
@@ -266,12 +266,19 @@
             </el-tabs>
         </div>
     </div>
+
+    <el-drawer v-model="isShowDrawer" :size="700" :destroy-on-close="true" :with-header="false">
+        <order-info-drawer :order-id="currentEditRowId" />
+    </el-drawer>
 </template>
 <script setup>
 import { reactive, ref } from "vue";
 import API from "@/utils/API/index.js";
 import { onMounted, inject } from "vue";
 import { formatDateTime } from "../utils/dateTimeUtils"
+import OrderInfoDrawer from "../views/OrderInfoDrawer.vue"
+
+
 const activeName = ref('first');
 const baseURL = inject("baseURL");
 
@@ -346,6 +353,17 @@ const queryDataFromTab = (tab, ev) => {
             break;
     }
 }
+
+/**
+ * 抽屉，展示订单详细信息
+ */
+const isShowDrawer = ref(false);
+const currentEditRowId = ref(null);
+const showDrawer = id => {
+    isShowDrawer.value = true;
+    currentEditRowId.value = id;
+}
+
 </script>
 <style lang="scss" scoped>
 .demo-tabs {
