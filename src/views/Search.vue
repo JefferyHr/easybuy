@@ -4,8 +4,8 @@
         <div class="home-brick-box pt-20 bg-[rgb(245,245,245)]">
             <div class="base-width flex flex-row">
                 <div class="brick-list">
-                    <template v-for="item, index in resultData.listData">
-                        <div class="brick-item cursor-pointer">
+                    <template v-for="item, index in resultData.listData" :key="item.id">
+                        <div class="brick-item cursor-pointer" @click="toGoosDetail(item)">
                             <a>
                                 <div class=" w-[160px] h-[160px] mx-auto my-20">
                                     <el-image :src="baseURL + item.goods_photo[0]" class="figure-img" lazy />
@@ -81,6 +81,9 @@ const queryData = () => {
 const pageChange = page => {
     queryFormData.pageIndex = page;
     queryData();
+}
+const toGoosDetail = item => {
+    window.open(router.resolve({ name: "GoodsDetail", params: { id: item.id } }).href);
 }
 </script>
 

@@ -249,7 +249,7 @@ const confirmSubmitOrder = () => {
     }
     API.orderInfo.submitOrder(orderInfo)
         .then((result) => {
-            console.log(result);
+            // console.log(result);
             router.replace({ name: 'ConfirmOrder', params: { id: result } });
 
         })

@@ -35,7 +35,9 @@
                 <p class="text-[22px] text-gray-800">订单提交成功！去支付喽~</p>
                 <p>请在 <span class="text-primaryColor">2小时内完成支付，超时后将取消订单</span></p>
                 <p class="text-gray-600">收货地址：
-                    {{ resultData.custom_addr }}
+                    {{ resultData.addressInfo?.province + ' ' + resultData.addressInfo?.city + ' ' +
+                            resultData.addressInfo?.area
+                    }}
                     {{ resultData.address_detail
                     }}
                 </p>
@@ -105,7 +107,18 @@ const toAliPay = () => {
         isLoading.value = true;
         API.orderInfo.aliPay(id)
             .then(result => {
-                location.href = result.data;
+                // console.log(result);
+                location.href = result;
+            })
+            .catch((error) => {
+                // console.log(error);
+                if (error.status == "fail") {
+                    ElMessageBox.alert("当前订单不是未支付状态，不能支付", "提示", {
+                        type: "error"
+                    }).then(() => {
+                        router.replace({ name: "Index" });
+                    })
+                }
             })
             .finally(() => {
                 isLoading.value = false;
@@ -115,7 +128,7 @@ const toAliPay = () => {
             type: "error"
         })
             .then(() => {
-                router.replace({ name: "index" });
+                router.replace({ name: "Index" });
             })
     }
 }

@@ -11,8 +11,10 @@
                 <el-tab-pane label="全部" name="first">
                     <el-card v-for="item in resultData.listData" shadow="never" class="demo-tabs mb-14">
                         <div>
-                            <span class="text-[18px]">{{ item.order_pay_type == 1 ? '未付款' : '已付款' }}</span>
-                            <el-button plain color="#ff6a00" class="text-[12px] ml-[10px]" size="small">去付款</el-button>
+                            <span class="text-[18px]">{{ item.order_status == 0 ? '未付款' : '已付款' }}</span>
+                            <el-button plain color="#ff6a00" v-if="item.order_status == 0" class="text-[12px] ml-[10px]"
+                                size="small" @click="$router.push({ name: 'ConfirmOrder', params: { id: item.id } })">
+                                去付款</el-button>
                         </div>
                         <div
                             class="flex flex-row justify-between mt-[22px] border-0  border-b border-gray-200 pb-[6px]">
@@ -62,7 +64,9 @@
                         <el-card shadow="never" class="demo-tabs mb-14">
                             <div>
                                 <span class="text-[18px]">未付款</span>
-                                <el-button plain color="#ff6a00" class="text-[12px] ml-[10px]" size="small">去付款
+                                <el-button plain color="#ff6a00"
+                                    @click="$router.push({ name: 'ConfirmOrder', params: { id: item.id } })"
+                                    class="text-[12px] ml-[10px]" size="small">去付款
                                 </el-button>
                             </div>
                             <div
@@ -101,7 +105,13 @@
                             </div>
                         </el-card>
                     </template>
-
+                    <div class="flex flex-row justify-between items-center pt-[11px]">
+                        <div class="text-[14px]">当前第{{ queryFormData.pageIndex }}页，共{{ resultData.pageCount }}页，共{{
+                                resultData.totalCount
+                        }}条</div>
+                        <el-pagination background layout="prev, pager, next" :total="resultData.totalCount"
+                            @current-change="currentChange" :current-page="queryFormData.pageIndex" />
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane label="已付款" name="third">
                     <template v-for="item in resultData.listData">
@@ -145,6 +155,13 @@
                             </div>
                         </el-card>
                     </template>
+                    <div class="flex flex-row justify-between items-center pt-[11px]">
+                        <div class="text-[14px]">当前第{{ queryFormData.pageIndex }}页，共{{ resultData.pageCount }}页，共{{
+                                resultData.totalCount
+                        }}条</div>
+                        <el-pagination background layout="prev, pager, next" :total="resultData.totalCount"
+                            @current-change="currentChange" :current-page="queryFormData.pageIndex" />
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane label="已发货" name="fourth">
                     <template v-for="item in resultData.listData">
@@ -188,7 +205,13 @@
                             </div>
                         </el-card>
                     </template>
-
+                    <div class="flex flex-row justify-between items-center pt-[11px]">
+                        <div class="text-[14px]">当前第{{ queryFormData.pageIndex }}页，共{{ resultData.pageCount }}页，共{{
+                                resultData.totalCount
+                        }}条</div>
+                        <el-pagination background layout="prev, pager, next" :total="resultData.totalCount"
+                            @current-change="currentChange" :current-page="queryFormData.pageIndex" />
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane label="已签收" name="five">
                     <template v-for="item in resultData.listData">
@@ -232,6 +255,13 @@
                             </div>
                         </el-card>
                     </template>
+                    <div class="flex flex-row justify-between items-center pt-[11px]">
+                        <div class="text-[14px]">当前第{{ queryFormData.pageIndex }}页，共{{ resultData.pageCount }}页，共{{
+                                resultData.totalCount
+                        }}条</div>
+                        <el-pagination background layout="prev, pager, next" :total="resultData.totalCount"
+                            @current-change="currentChange" :current-page="queryFormData.pageIndex" />
+                    </div>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -265,7 +295,7 @@ const resultData = reactive({
 const queryData = (queryFormData) => {
     API.orderInfo.getListByPage(queryFormData)
         .then(result => {
-            // console.log(result)
+            console.log(result)
             resultData.listData = result.listData;
             resultData.listData.forEach(item => {
                 item.orderDetailInfoList[0].goodsInfo.goods_photo = JSON.parse(item.orderDetailInfoList[0].goodsInfo.goods_photo)

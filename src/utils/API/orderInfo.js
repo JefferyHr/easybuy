@@ -41,6 +41,12 @@ const orderInfo = {
     findById(id) {
         return axiosInstance.get(`/orderInfo/findById/${id}`);
     },
+    aliPay(id) {
+        // http://www.softeem.xin:9547/orderInfo/aliPay
+        return axiosInstance.post(`/orderInfo/aliPay`, {
+            id
+        })
+    }
 }
 
 export default orderInfo;

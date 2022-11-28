@@ -1,6 +1,6 @@
 <template>
     <div class="py-6 border-b-2 border-solid">
-        <div class="base-width m-auto flex flex-row items-end">
+        <div class="base-width m-auto flex flex-row items-center">
             <img src="../../src/assets/img/logo.png" class="w-[56px] h-[56px] cursor-pointer"
                 @click="$router.replace({ name: 'Index' })" alt="">
             <div class="flex-1 ml-10 flex flex-row items-baseline">
