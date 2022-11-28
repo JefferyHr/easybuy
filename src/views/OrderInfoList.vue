@@ -1,5 +1,5 @@
 <template>
-    <div class="p-[30px] big-box mb-10">
+    <div class="p-[30px] pb-[70px] big-box mb-10">
         <div>
             <span class="text-[22px]">我的订单</span>
             <span class="text-[12px] pl-[8px] text-gray-400">

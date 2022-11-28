@@ -1,6 +1,6 @@
 <template>
     <page-view>
-        <el-card>
+        <el-card class="pb-[400px]">
             <template #header>修改密码</template>
             <el-form label-width="100px" ref="formEl" :model="queryFormData" :rules="rules" :ref="formEl">
                 <el-form-item label="用户" class="pr-[20px]">
@@ -30,7 +30,7 @@ import { reactive, ref } from "vue";
 import API from "@/utils/API/index.js";
 import { onMounted, inject } from "vue";
 import { mainStore } from "../store/index.js";
-import { result } from "lodash";
+import { ElMessageBox } from "element-plus";
 
 const store = mainStore();
 
@@ -85,6 +85,7 @@ const submitForm = () => {
             //表单验证成功，我们要提交数据
             queryData();
             console.log("修改成功")
+            ElMessageBox.alert("修改密码成功！");
         } else {
             ElNotification({
                 type: "warning",

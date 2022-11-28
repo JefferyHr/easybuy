@@ -2,7 +2,7 @@
     <div class="py-6 border-b-2 border-solid">
         <div class="base-width m-auto flex flex-row items-end">
             <img src="../../src/assets/img/logo.png" class="w-[56px] h-[56px] cursor-pointer"
-                @click="$router.replace({ name: 'index' })" alt="">
+                @click="$router.replace({ name: 'Index' })" alt="">
             <div class="flex-1 ml-10 flex flex-row items-baseline">
                 <div class="text-[22px] ml-[11px]">我的购物车</div>
                 <p class="text-[12px] ml-[6px] text-gray-400">温馨提示：产品是否购买成功，是以最终下单为准哦，请尽快结算</p>
@@ -19,12 +19,13 @@
                         <el-dropdown-menu>
                             <el-dropdown-item command="CustomCenter" @click="router.replace({ name: 'CustomInfo' })">
                                 人个中心</el-dropdown-item>
+
+                            <el-dropdown-item command="CustomCenter" @click="router.replace({ name: 'OrderInfoList' })">
+                                我的订单</el-dropdown-item>
                             <el-dropdown-item divided command="logOut">退出登录
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
-                    <span class="mx-2 text-gray-400">|</span>
-                    <span @click="$router.replace({ name: 'OrderInfoList' })">我的订单</span>
                 </el-dropdown>
             </div>
         </div>
@@ -70,8 +71,6 @@
         <div class="base-width m-auto bg-white  my-[22px]">
             <div class="flex flex-row h-[50px] items-center">
                 <div class="ml-4 text-gray-500 text-[12px] flex">
-                    <p>继续购物</p>
-                    <span class="mx-2">|</span>
                     <div>已选择 <span class="text-primary">{{ selectedRows.length }}</span> 件商品</div>
                 </div>
                 <div class="flex flex-row justify-end items-baseline text-primary flex-1 box-border pr-[20px]">
@@ -80,7 +79,7 @@
                 <div class="w-[200px] h-full">
                     <button type="button"
                         class="text-white w-full h-full disabled:opacity-30 disabled:cursor-no-drop transition-all bg-[#ff6a00]"
-                        @click="toCheckoutOrder">去结算
+                        @click="toCheckoutOrder" :disabled="selectedRows.length <= 0">去结算
                     </button>
                 </div>
             </div>

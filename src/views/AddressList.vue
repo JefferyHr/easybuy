@@ -1,5 +1,5 @@
 <template>
-    <page-view class="p-[22px]">
+    <page-view class="p-[22px] pb-[120px]">
         <el-card>
             <template #header>
                 <div class="flex flex-row justify-between">

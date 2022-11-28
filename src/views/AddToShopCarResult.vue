@@ -2,7 +2,7 @@
     <Header></Header>
     <div class="bg-gray-100">
         <div class="base-width py-[30px] flex flex-row justify-between items-center border-0 border-b border-gray-400">
-            <div class="flex felx-row items-center">
+            <div class="flex flex-row items-center">
                 <el-icon size="60" color="green">
                     <CircleCheck />
                 </el-icon>
