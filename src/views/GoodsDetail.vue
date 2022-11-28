@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="flex flex-row justify-between py-10">
-                <button type="button" @click="$router.push({ name: 'AddToShopCarResult', params: { goods_id: id } })"
+                <button type="button" @click="addToShopCar"
                     class="border-none outline-none bg-primaryColor text-white flex flex-row justify-center items-center w-[260px] h-[50px]">加入购物车</button>
                 <button type="button"
                     class="border-none outline-none bg-gray-200 flex flex-row justify-center items-center w-[260px] h-[50px]">喜欢</button>
@@ -101,8 +101,8 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { ref, inject, computed } from "vue"
+import { useRoute, useRouter } from 'vue-router';
+import { reactive, ref, inject, computed } from "vue"
 import API from '../utils/API';
 import { mainStore } from '../store';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -115,6 +115,7 @@ import 'swiper/css/pagination';
 const baseURL = inject("baseURL")
 
 const route = useRoute()
+const router = useRouter()
 const store = mainStore()
 const id = route.params.id
 
@@ -156,6 +157,17 @@ const getAddress = async () => {
 (() => {
     getAddress()
 })()
+const infoList = reactive({
+    goods_id: route.params.id,
+    custom_id: store.loginUserInfo.id
+})
+const addToShopCar = () => {
+    API.shopCarInfo.addToShopCar(infoList).then((res) => {
+        console.log(res);
+        router.push({ name: 'AddToShopCarResult', params: { goods_id: id } })
+    })
+}
+
 </script>
 
 <style lang="scss" scoped>

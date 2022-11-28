@@ -46,7 +46,7 @@
             <a href="javascript:void(0)">社区</a>
         </div>
         <div class="flex  flex-row w-[280px]">
-            <el-input :placeholder='goodName ? goodName : "请输入要搜索的商品"' v-model="goods_name"></el-input>
+            <el-input placeholder="请输入要搜索的商品" v-model="goods_name"></el-input>
             <el-button color="rgb(255,103,27)" @click="toSearch(goods_name)">搜索</el-button>
         </div>
     </div>
@@ -65,7 +65,6 @@ const router = useRouter()
 const { loginUserInfo } = storeToRefs(store)
 const goods_name = ref('')
 
-const goodName = inject("goodsname")
 const logOut = () => {
     ElMessageBox.confirm("确定要退出吗", "系统提示", {
         confirmButtonText: "确定退出",
