@@ -1,0 +1,1 @@
+.pay-type-list{display:grid;grid-template-columns:repeat(auto-fill,180px);grid-gap:20px;box-sizing:border-box;padding-top:20px;padding-bottom:20px}.pay-type-list>div{cursor:pointer;transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.pay-type-list>div:hover{border-color:#ff6a00}
